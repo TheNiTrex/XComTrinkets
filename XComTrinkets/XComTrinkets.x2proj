@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Guid>fe8a2377-16dc-40c4-b7d2-e1b490448343</Guid>
+    <Name>XCOM Trinkets</Name>
+    <Description>Adds Darkest Dungeon-style Trinkets to XCOM.
+
+tags= item, weapon, gameplay</Description>
+    <SteamPublishID>0</SteamPublishID>
+    <AssemblyName>XComTrinkets</AssemblyName>
+    <RootNamespace>XComTrinkets</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
+    <Folder Include="Localization\" />
+    <Folder Include="Content" />
+    <Folder Include="Src\" />
+    <Folder Include="Src\XCOMTrinkets\" />
+    <Folder Include="Src\XCOMTrinkets\Classes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\XComClassData.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComGameData.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComTrinkets.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Content\UILibrary_Trinkets.upk">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ReadMe.txt" />
+    <Content Include="ModPreview.jpg" />
+    <Content Include="Config\XComEditor.ini" />
+    <Content Include="Config\XComEngine.ini" />
+    <Content Include="Config\XComGame.ini" />
+    <Content Include="Localization\XComGame.int" />
+    <Content Include="Src\XCOMTrinkets\Classes\X2Ability_Trinkets.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\XCOMTrinkets\Classes\X2DownloadableContentInfo_XCOMTrinkets.uc" />
+    <Content Include="Src\XCOMTrinkets\Classes\X2Effect_CritImmunity.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\XCOMTrinkets\Classes\X2Item_Trinkets.uc">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
+</Project>
