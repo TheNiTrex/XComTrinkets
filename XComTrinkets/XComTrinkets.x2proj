@@ -22,6 +22,9 @@ tags= item, weapon, gameplay</Description>
     <Content Include="Config\XComClassData.ini">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Config\XComGameCore.ini">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Config\XComGameData.ini">
       <SubType>Content</SubType>
     </Content>
@@ -41,6 +44,9 @@ tags= item, weapon, gameplay</Description>
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\XCOMTrinkets\Classes\X2DownloadableContentInfo_XCOMTrinkets.uc" />
+    <Content Include="Src\XCOMTrinkets\Classes\X2Effect_BonusDmgToPsi.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\XCOMTrinkets\Classes\X2Effect_CritImmunity.uc">
       <SubType>Content</SubType>
     </Content>

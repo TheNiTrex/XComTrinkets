@@ -1,23 +1,21 @@
 class X2Ability_Trinkets extends X2Ability
 	dependson (XComGameStateContext_Ability) config(GameCore);
 
-	var bool AbilityApplied;
-
-	var config config(Trinkets) int TRINKET_MOBILITY_BONUS;
+	var config config(Trinkets) int TRINKET_MOBILITY_VALUE;
 
 	// Relics:
-	var config config(Trinkets) int OLDWARMEDAL_SIGHTRADIUS_BONUS;
+	var config config(Trinkets) int VIGILANCE_SIGHTRADIUS_VALUE;
 
 	// Battle Trophies:
-	var config config(Trinkets) int VOODOO_DMG;
-	var config config(Trinkets) int BLOODSOAKEDTROOPERRAG_DEFENSE_BONUS;
-	var config config(Trinkets) int ELERIUMSHARD_SHIELDHP_BONUS;
-	var config config(Trinkets) int BROKENDATAPAD_HACK_BONUS;
+	var config config(Trinkets) int VOODOO_DAMAGE_VALUE;
+	var config config(Trinkets) int HARDTOTRACK_DEFENSE_VALUE;
+	var config config(Trinkets) int GLASSARMOR_SHIELDHP_VALUE;
+	var config config(Trinkets) int TINKERER_HACK_VALUE;
 
 	// World Items:
-	var config config(Trinkets) int FALLENCOMRADEDOGTAG_WILL_BONUS;
-	var config config(Trinkets) int SKIRMISHERRADIO_CRITCHANCE_BONUS;
-	var config config(Trinkets) int TEMPLARCHARM_DODGE_BONUS;
+	var config config(Trinkets) int HEROISM_WILL_VALUE;
+	var config config(Trinkets) int SONAR_CRITCHANCE_VALUE;
+	var config config(Trinkets) int ARMOROFFAITH_DODGE_VALUE;
 
 static function array<X2DataTemplate> CreateTemplates() {
 
@@ -25,37 +23,37 @@ static function array<X2DataTemplate> CreateTemplates() {
 
 	// Create Trinket Ability Templates:
 
-	TrinketStats.AddItem(TrinketMobilityStats());
+	TrinketStats.AddItem(TrinketMobility());
 
-	// Relics:
-	TrinketStats.AddItem(OldWarMedalStats());
-	TrinketStats.AddItem(TrophyEXALTScarfStats());
-	TrinketStats.AddItem(CrystallizedMeldStats());
+	// Relic Abilities:
+	TrinketStats.AddItem(Vigilance());
+	TrinketStats.AddItem(CottonMask());
+	TrinketStats.AddItem(Gambler());
 
-	// Battle Trophies:
-	TrinketStats.AddItem(SectoidFingerStats());
-	TrinketStats.AddItem(BloodSoakedTrooperRagStats());
-	TrinketStats.AddItem(EleriumShardStats());
-	TrinketStats.AddItem(BrokenDatapadStats());
+	// Battle Trophy Abilties:
+	TrinketStats.AddItem(Voodoo());
+	TrinketStats.AddItem(HardToTrack());
+	TrinketStats.AddItem(GlassArmor());
+	TrinketStats.AddItem(Tinkerer());
 
-	// World Items:
+	// World Item Abilities:
 	TrinketStats.AddItem(HomeSweetHome());
-	TrinketStats.AddItem(FallenFriendDogTagStats());
-	TrinketStats.AddItem(SkirmisherRadioStats());
-	TrinketStats.AddItem(TemplarCharmStats());
+	TrinketStats.AddItem(Heroism());
+	TrinketStats.AddItem(Sonar());
+	TrinketStats.AddItem(ArmorOfFaith());
 
 	return TrinketStats;
 
 }
 
-static function X2AbilityTemplate TrinketMobilityStats() {
+static function X2AbilityTemplate TrinketMobility() {
 
-	local X2AbilityTemplate Template;	
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
-	local X2AbilityTarget_Self	TargetStyle;
 	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'TrinketMobilityStats');
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'TrinketMobility');
 
 	Template.AbilitySourceName = 'eAbilitySource_Item';
 	Template.eAbilityIconBehaviorHUD = EAbilityIconBehavior_NeverShow;
@@ -73,7 +71,7 @@ static function X2AbilityTemplate TrinketMobilityStats() {
 	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
 	PersistentStatChangeEffect.EffectName = 'TrinketMobilityStats';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Mobility, default.TRINKET_MOBILITY_BONUS);
+	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Mobility, default.TRINKET_MOBILITY_VALUE);
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
@@ -86,14 +84,14 @@ static function X2AbilityTemplate TrinketMobilityStats() {
 // ###-RELICS-###
 // ##############
 
-static function X2AbilityTemplate OldWarMedalStats() {
+static function X2AbilityTemplate Vigilance() {
 
-	local X2AbilityTemplate Template;	
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
-	local X2AbilityTarget_Self	TargetStyle;
 	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'OldWarMedalStats');
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'Vigilance');
 
 	Template.IconImage = "img:///UILibrary_Trinkets.OldMedalIcon";
 
@@ -112,9 +110,10 @@ static function X2AbilityTemplate OldWarMedalStats() {
 	Template.AbilityTriggers.AddItem(Trigger);
 
 	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.EffectName = 'OldWorldMedalStats';
+	PersistentStatChangeEffect.EffectName = 'Vigilance';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_SightRadius, default.OLDWARMEDAL_SIGHTRADIUS_BONUS);
+	PersistentStatChangeEffect.AddPersistentStatChange(eStat_SightRadius, default.VIGILANCE_SIGHTRADIUS_VALUE);
+	PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);	
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
@@ -123,15 +122,15 @@ static function X2AbilityTemplate OldWarMedalStats() {
 
 }
 
-static function X2AbilityTemplate TrophyEXALTScarfStats() {
+static function X2AbilityTemplate CottonMask() {
 
-	local X2AbilityTemplate Template;	
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
-	local X2AbilityTarget_Self	TargetStyle;
 	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
 	local X2Effect_DamageImmunity ImmunityEffect;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'TrophyEXALTScarfStats');
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'CottonMask');
 
 	Template.IconImage = "img:///UILibrary_Trinkets.XALT_BandanaIcon";
 
@@ -150,7 +149,7 @@ static function X2AbilityTemplate TrophyEXALTScarfStats() {
 	Template.AbilityTriggers.AddItem(Trigger);
 
 	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.EffectName = 'TrophyEXALTScarfStats';
+	PersistentStatChangeEffect.EffectName = 'CottonMask';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
@@ -160,7 +159,7 @@ static function X2AbilityTemplate TrophyEXALTScarfStats() {
 	ImmunityEffect.ImmuneTypes.AddItem('Poison');
 	ImmunityEffect.ImmuneTypes.AddItem(class'X2Item_DefaultDamageTypes'.default.ParthenogenicPoisonType);
 	ImmunityEffect.BuildPersistentEffect(1, true, false, false);
-	ImmunityEffect.SetDisplayInfo(ePerkBuff_Bonus, Template.LocFriendlyName, Template.GetMyHelpText(), Template.IconImage, false, , Template.AbilitySourceName);
+	ImmunityEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);	
 	Template.AddTargetEffect(ImmunityEffect);
 
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
@@ -169,17 +168,16 @@ static function X2AbilityTemplate TrophyEXALTScarfStats() {
 
 }
 
-static function X2AbilityTemplate CrystallizedMeldStats() {
+static function X2AbilityTemplate Gambler() {
 
-	local X2AbilityTemplate Template;	
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
-	local X2AbilityTarget_Self	TargetStyle;
-	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
-
 	local array<ECharStatType> RandomStatTypes;
 	local int Index;
+	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'CrystallizedMeldStats');
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'Gambler');
 
 	Template.IconImage = "img:///UILibrary_Trinkets.CrystallizedMeldIcon";
 
@@ -208,11 +206,12 @@ static function X2AbilityTemplate CrystallizedMeldStats() {
 	for (Index = 0; Index < RandomStatTypes.length; ++Index) {
 
 		PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-		PersistentStatChangeEffect.EffectName = 'CrystallizedMeldStats';
+		PersistentStatChangeEffect.EffectName = 'Gambler';
 		PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
 		PersistentStatChangeEffect.AddPersistentStatChange(RandomStatTypes[Index], 10);
-		PersistentStatChangeEffect.ApplyChanceFn = ApplyChance_CrystallizedMeldStats;
+		PersistentStatChangeEffect.ApplyChanceFn = ApplyChance_Gambler;
 		PersistentStatChangeEffect.DuplicateResponse = eDupe_Ignore; // Ignore duplicate Effects, prevents units from getting multiple boosts
+		PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);
 		Template.AddTargetEffect(PersistentStatChangeEffect);
 
 	}
@@ -227,17 +226,14 @@ static function X2AbilityTemplate CrystallizedMeldStats() {
 // ###-BATTLE-TROPHIES-###
 // #######################
 
-static function X2AbilityTemplate SectoidFingerStats() {
+static function X2AbilityTemplate Voodoo() {
 
-	local X2AbilityTemplate Template;	
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
-	local X2AbilityTarget_Self	TargetStyle;
-	//local X2Effect_PersistentStatChange PersistentStatChangeEffect;
+	local X2Effect_BonusDmgToPsi BonusEffect;
 
-	local X2Condition_UnitProperty TargetCondition;
-	local X2Effect_BonusWeaponDamage BonusEffect;
-
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'SectoidFingerStats');
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'Voodoo');
 
 	Template.IconImage = "img:///UILibrary_Trinkets.SectoidFingerIcon";
 
@@ -255,22 +251,12 @@ static function X2AbilityTemplate SectoidFingerStats() {
 	Trigger = new class'X2AbilityTrigger_UnitPostBeginPlay';
 	Template.AbilityTriggers.AddItem(Trigger);
 
-	// Use Target Condition to exclude Non-Psionic Units from the Effect
-	TargetCondition = new class'X2Condition_UnitProperty';
-	TargetCondition.ExcludeNonPsionic = true;
-	// +Damage against Psionic Units
-	BonusEffect = new class'X2Effect_BonusWeaponDamage';
-	BonusEffect.BonusDmg = default.VOODOO_DMG;
+	//// +Damage against Psionic Units
+	BonusEffect = new class'X2Effect_BonusDmgToPsi';
+	BonusEffect.BonusDmg = default.VOODOO_DAMAGE_VALUE;
 	BonusEffect.BuildPersistentEffect(1, true, false, false);
 	BonusEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);
-	BonusEffect.TargetConditions.AddItem(TargetCondition);
 	Template.AddTargetEffect(BonusEffect);
-
-	//PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	//PersistentStatChangeEffect.EffectName = 'SectoidFingerStats';
-	//PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	//PersistentStatChangeEffect.AddPersistentStatChange(eStat_PsiOffense, default.SECTOIDFINGER_PSIOFFENSE_BONUS);
-	//Template.AddTargetEffect(PersistentStatChangeEffect);
 
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
 
@@ -278,14 +264,14 @@ static function X2AbilityTemplate SectoidFingerStats() {
 
 }
 
-static function X2AbilityTemplate BloodSoakedTrooperRagStats() {
+static function X2AbilityTemplate HardToTrack() {
 
-	local X2AbilityTemplate Template;	
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
-	local X2AbilityTarget_Self	TargetStyle;
 	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'BloodSoakedTrooperRagStats');
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'HardToTrack');
 
 	Template.IconImage = "img:///UILibrary_Trinkets.ADVENTChipIcon";
 
@@ -304,9 +290,10 @@ static function X2AbilityTemplate BloodSoakedTrooperRagStats() {
 	Template.AbilityTriggers.AddItem(Trigger);
 
 	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.EffectName = 'BloodSoakedTrooperRagStats';
+	PersistentStatChangeEffect.EffectName = 'HardToTrack';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Defense, default.BLOODSOAKEDTROOPERRAG_DEFENSE_BONUS);
+	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Defense, default.HARDTOTRACK_DEFENSE_VALUE);
+	PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
@@ -315,14 +302,14 @@ static function X2AbilityTemplate BloodSoakedTrooperRagStats() {
 
 }
 
-static function X2AbilityTemplate EleriumShardStats() {
+static function X2AbilityTemplate GlassArmor() {
 
-	local X2AbilityTemplate Template;	
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
-	local X2AbilityTarget_Self	TargetStyle;
 	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'EleriumShardStats');
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'GlassArmor');
 
 	Template.IconImage = "img:///UILibrary_Trinkets.EleriumShardIcon";
 
@@ -341,9 +328,10 @@ static function X2AbilityTemplate EleriumShardStats() {
 	Template.AbilityTriggers.AddItem(Trigger);
 
 	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.EffectName = 'EleriumShardStats';
+	PersistentStatChangeEffect.EffectName = 'GlassArmor';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ShieldHP, default.ELERIUMSHARD_SHIELDHP_BONUS);
+	PersistentStatChangeEffect.AddPersistentStatChange(eStat_ShieldHP, default.GLASSARMOR_SHIELDHP_VALUE);
+	PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);	
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
@@ -352,14 +340,14 @@ static function X2AbilityTemplate EleriumShardStats() {
 
 }
 
-static function X2AbilityTemplate BrokenDatapadStats() {
+static function X2AbilityTemplate Tinkerer() {
 
-	local X2AbilityTemplate Template;	
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
-	local X2AbilityTarget_Self	TargetStyle;
 	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'BrokenDatapadStats');
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'Tinkerer');
 
 	Template.IconImage = "img:///UILibrary_Trinkets.BrokenDataCacheIcon";
 
@@ -378,9 +366,10 @@ static function X2AbilityTemplate BrokenDatapadStats() {
 	Template.AbilityTriggers.AddItem(Trigger);
 
 	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.EffectName = 'BrokenDatapadStats';
+	PersistentStatChangeEffect.EffectName = 'Tinkerer';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Hacking, default.BROKENDATAPAD_HACK_BONUS);
+	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Hacking, default.TINKERER_HACK_VALUE);
+	PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);	
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
@@ -395,10 +384,9 @@ static function X2AbilityTemplate BrokenDatapadStats() {
 
 static function X2AbilityTemplate HomeSweetHome() {
 
-	local X2AbilityTemplate Template;	
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
-	local X2AbilityTarget_Self	TargetStyle;
-
 	local X2Effect_CritImmunity	CritImmunity;
 
 	`CREATE_X2ABILITY_TEMPLATE(Template, 'HomeSweetHome');
@@ -420,7 +408,6 @@ static function X2AbilityTemplate HomeSweetHome() {
 	Template.AbilityTriggers.AddItem(Trigger);
 
 	CritImmunity = new class'X2Effect_CritImmunity';
-
 	CritImmunity.BuildPersistentEffect(1, true, false, false);
 	CritImmunity.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true, , Template.AbilitySourceName);
 	Template.AddTargetEffect(CritImmunity);
@@ -431,15 +418,14 @@ static function X2AbilityTemplate HomeSweetHome() {
 
 }
 
-static function X2AbilityTemplate FallenFriendDogTagStats() {
+static function X2AbilityTemplate Heroism() {
 
-	local X2AbilityTemplate Template;	
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
-	local X2AbilityTarget_Self	TargetStyle;
 	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
-	//local X2Effect_DamageImmunity ImmunityEffect;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'FallenFriendDogTagStats');
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'Heroism');
 
 	Template.IconImage = "img:///UILibrary_Trinkets.dogtagsIcon";
 
@@ -458,9 +444,10 @@ static function X2AbilityTemplate FallenFriendDogTagStats() {
 	Template.AbilityTriggers.AddItem(Trigger);
 
 	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.EffectName = 'FallenFriendDogTagStats';
+	PersistentStatChangeEffect.EffectName = 'Heroism';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Will, default.FALLENCOMRADEDOGTAG_WILL_BONUS);
+	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Will, default.HEROISM_WILL_VALUE);
+	PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);	
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
@@ -469,14 +456,14 @@ static function X2AbilityTemplate FallenFriendDogTagStats() {
 
 }
 
-static function X2AbilityTemplate SkirmisherRadioStats() {
+static function X2AbilityTemplate Sonar() {
 
-	local X2AbilityTemplate Template;	
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
-	local X2AbilityTarget_Self	TargetStyle;
 	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'SkirmisherRadioStats');
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'Sonar');
 
 	Template.IconImage = "img:///UILibrary_Trinkets.SkirmisherRadioIcon";
 
@@ -495,9 +482,10 @@ static function X2AbilityTemplate SkirmisherRadioStats() {
 	Template.AbilityTriggers.AddItem(Trigger);
 
 	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.EffectName = 'SkirmisherRadioStats';
+	PersistentStatChangeEffect.EffectName = 'Sonar';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Dodge, default.TEMPLARCHARM_DODGE_BONUS);
+	PersistentStatChangeEffect.AddPersistentStatChange(eStat_CritChance, default.SONAR_CRITCHANCE_VALUE);
+	PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);	
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
@@ -506,14 +494,14 @@ static function X2AbilityTemplate SkirmisherRadioStats() {
 
 }
 
-static function X2AbilityTemplate TemplarCharmStats() {
+static function X2AbilityTemplate ArmorOfFaith() {
 
-	local X2AbilityTemplate Template;	
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
-	local X2AbilityTarget_Self	TargetStyle;
 	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
 
-	`CREATE_X2ABILITY_TEMPLATE(Template, 'TemplarCharmStats');
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'ArmorOfFaith');
 
 	Template.IconImage = "img:///UILibrary_Trinkets.tEMPLARcHARMIcon";
 
@@ -532,9 +520,10 @@ static function X2AbilityTemplate TemplarCharmStats() {
 	Template.AbilityTriggers.AddItem(Trigger);
 
 	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
-	PersistentStatChangeEffect.EffectName = 'TemplarCharmStats';
+	PersistentStatChangeEffect.EffectName = 'ArmorOfFaith';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_CritChance, default.SKIRMISHERRADIO_CRITCHANCE_BONUS);
+	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Dodge, default.ARMOROFFAITH_DODGE_VALUE);
+	PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);	
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
@@ -543,13 +532,13 @@ static function X2AbilityTemplate TemplarCharmStats() {
 
 }
 
-static function name ApplyChance_CrystallizedMeldStats(const out EffectAppliedData ApplyEffectParameters, XComGameState_BaseObject kNewTargetState, XComGameState NewGameState) {
+static function name ApplyChance_Gambler(const out EffectAppliedData ApplyEffectParameters, XComGameState_BaseObject kNewTargetState, XComGameState NewGameState) {
 
 	local int RandRoll;
 
 	RandRoll = `SYNC_RAND_STATIC(100);
 
-	if (RandRoll <= 17) {
+	if (RandRoll <= 17) { // 6 Stat Entries, 100/6 = 16.6 reoccuring, rounding up to 17
 		
 		return 'AA_Success';
 

@@ -10,6 +10,8 @@
 
 class X2DownloadableContentInfo_XCOMTrinkets extends X2DownloadableContentInfo;
 
+	var config array<LootTable> LootTables, LootEntry;
+
 /// <summary>
 /// This method is run if the player loads a saved game that was created prior to this DLC / Mod being installed, and allows the 
 /// DLC / Mod to perform custom processing in response. This will only be called once the first time a player loads a save that was
@@ -24,8 +26,17 @@ static event OnLoadedSavedGame() {
 /// <summary>
 /// Called when the player starts a new campaign while this DLC / Mod is installed
 /// </summary>
-static event InstallNewCampaign(XComGameState StartState)
-{}
+static event InstallNewCampaign(XComGameState StartState) {
+
+	// Not needed, Item Templates are added at campaign start if Template.StartingItem is set to True
+
+}
+
+static event OnPostTemplatesCreated() {
+
+    AddLootTables();
+
+}
 
 static function AddTrinkets() {
 
@@ -54,14 +65,14 @@ static function AddTrinkets() {
 	// Add Trinket Template Names to list:
 	TrinketTemplateNames.AddItem('OldWarMedal');
 	TrinketTemplateNames.AddItem('OldWarBullet'); 
-	TrinketTemplateNames.AddItem('TrophyEXALTScarf'); 
+	TrinketTemplateNames.AddItem('EXALTBandana'); 
 	TrinketTemplateNames.AddItem('CrystallizedMeld');
 	TrinketTemplateNames.AddItem('SectoidFinger');
-	TrinketTemplateNames.AddItem('BloodSoakedTrooperRag');
+	TrinketTemplateNames.AddItem('InoperableBiochip');
 	TrinketTemplateNames.AddItem('EleriumFragment');
 	TrinketTemplateNames.AddItem('BrokenDatapad');
 	TrinketTemplateNames.AddItem('AVENGERScrap'); 
-	TrinketTemplateNames.AddItem('FallenFriendDogTag');
+	TrinketTemplateNames.AddItem('FallenComradeDogTag');
 	TrinketTemplateNames.AddItem('SkirmisherRadio');
 	TrinketTemplateNames.AddItem('TemplarCharm');
 	TrinketTemplateNames.AddItem('ReaperRecipeBook');
@@ -83,4 +94,25 @@ static function AddTrinkets() {
 
 		}
 	} 
+}
+
+static function AddLootTables() {
+
+    local X2LootTableManager LootManager;
+    local LootTable LootBag;
+    local LootTableEntry Entry;
+    
+    LootManager = X2LootTableManager(class'Engine'.static.FindClassDefaultObject("X2LootTableManager"));
+
+    foreach default.LootEntry(LootBag) {
+
+        if ( LootManager.default.LootTables.Find('TableName', LootBag.TableName) != INDEX_NONE ) {
+
+            foreach LootBag.Loots(Entry) {
+
+                class'X2LootTableManager'.static.AddEntryStatic(LootBag.TableName, Entry, false);
+
+            }
+        }    
+    }
 }

@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # XCOM ModBuddy Solution File, Format Version 11.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{5DAE07AF-E217-45C1-8DE7-FF99D6011E8A}") = "XComTrinkets", "XComTrinkets\XComTrinkets.x2proj", "{61C73F76-28A0-4324-B87D-5001A72AE58B}"
+Project("{5DAE07AF-E217-45C1-8DE7-FF99D6011E8A}") = "XComTrinkets", "XComTrinkets\XComTrinkets.x2proj", "{5F5EB012-36AD-44C4-BC47-6A2293E8D5E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|XCOM 2 = Default|XCOM 2
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{61C73F76-28A0-4324-B87D-5001A72AE58B}.Default|XCOM 2.ActiveCfg = Default|XCOM 2
-		{61C73F76-28A0-4324-B87D-5001A72AE58B}.Default|XCOM 2.Build.0 = Default|XCOM 2
+		{5F5EB012-36AD-44C4-BC47-6A2293E8D5E7}.Default|XCOM 2.ActiveCfg = Default|XCOM 2
+		{5F5EB012-36AD-44C4-BC47-6A2293E8D5E7}.Default|XCOM 2.Build.0 = Default|XCOM 2
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
