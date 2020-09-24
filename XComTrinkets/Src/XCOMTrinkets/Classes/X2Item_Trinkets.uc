@@ -62,6 +62,7 @@ static function X2DataTemplate CreateOldWarMedal() {
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -74,8 +75,6 @@ static function X2DataTemplate CreateOldWarMedal() {
 		Template.StartingItem = true;
 		Template.CanBeBuilt = false;
 		Template.bInfiniteItem = true;
-
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
 	
 	return Template;
 }
@@ -91,13 +90,15 @@ static function X2DataTemplate CreateOldWarBullet() {
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
 	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('BetweenTheEyes');
+	Template.Abilities.AddItem('UndeadlyAim');
+	//Template.Abilities.AddItem('BetweenTheEyes');
 
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -107,11 +108,9 @@ static function X2DataTemplate CreateOldWarBullet() {
 
 	}
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
-
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
+		Template.StartingItem = true;
+		Template.CanBeBuilt = false;
+		Template.bInfiniteItem = true;
 
 	return Template;
 }
@@ -134,6 +133,7 @@ static function X2DataTemplate CreateEXALTBandana() {
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -143,11 +143,9 @@ static function X2DataTemplate CreateEXALTBandana() {
 
 	}
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
-
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
+		Template.StartingItem = true;
+		Template.CanBeBuilt = false;
+		Template.bInfiniteItem = true;
 
 	return Template;
 }
@@ -169,6 +167,7 @@ static function X2DataTemplate CreateCrystallizedMeld() {
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -178,11 +177,9 @@ static function X2DataTemplate CreateCrystallizedMeld() {
 
 	}
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
-
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
+		Template.StartingItem = true;
+		Template.CanBeBuilt = false;
+		Template.bInfiniteItem = true;
 
 	return Template;
 }
@@ -208,6 +205,7 @@ static function X2DataTemplate CreateSectoidFinger() {
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -217,12 +215,9 @@ static function X2DataTemplate CreateSectoidFinger() {
 
 	}
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
-
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
-
+		Template.StartingItem = false;
+		Template.CanBeBuilt = false;
+		Template.bInfiniteItem = false;
 	return Template;
 }
 
@@ -244,6 +239,7 @@ static function X2DataTemplate CreateInoperableBiochip() {
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -253,12 +249,13 @@ static function X2DataTemplate CreateInoperableBiochip() {
 
 	}
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
+		Template.LootStaticMesh = StaticMesh'UI_3D.Loot.WeapFragmentA';
 
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.DefenseLabel, eStat_Defense, class'X2Item_Trinkets'.default.INOPERABLEBIOCHIP_DEFENSE_VALUE, true); // UI Label
+		Template.StartingItem = false;
+		Template.CanBeBuilt = false;
+		Template.bInfiniteItem = false;
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.DefenseLabel, eStat_Defense, class'X2Item_Trinkets'.default.INOPERABLEBIOCHIP_DEFENSE_VALUE, true);
 
 	return Template;
 }
@@ -280,6 +277,7 @@ static function X2DataTemplate CreateEleriumFragment() {
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -289,11 +287,13 @@ static function X2DataTemplate CreateEleriumFragment() {
 
 	}
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
+		Template.LootStaticMesh = StaticMesh'UI_3D.Loot.WeapFragmentA';
 
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
+		Template.StartingItem = false;
+		Template.CanBeBuilt = false;
+		Template.bInfiniteItem = false;
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	return Template;
 }
@@ -315,6 +315,7 @@ static function X2DataTemplate CreateBrokenDatapad() {
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -324,12 +325,11 @@ static function X2DataTemplate CreateBrokenDatapad() {
 
 	}
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
-
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.TechBonusLabel, eStat_Hacking, class'X2Item_Trinkets'.default.BROKENDATAPAD_HACK_VALUE, true); // UI Label
+		Template.StartingItem = false;
+		Template.CanBeBuilt = false;
+		Template.bInfiniteItem = false;
+		
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.TechBonusLabel, eStat_Hacking, class'X2Item_Trinkets'.default.BROKENDATAPAD_HACK_VALUE, true);
 
 	return Template;
 }
@@ -355,6 +355,7 @@ static function X2DataTemplate CreateAVENGERScrap() {
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -364,11 +365,9 @@ static function X2DataTemplate CreateAVENGERScrap() {
 
 	}
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
-
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
+		Template.StartingItem = true;
+		Template.CanBeBuilt = false;
+		Template.bInfiniteItem = true;
 
 	return Template;
 }
@@ -390,6 +389,7 @@ static function X2DataTemplate CreateFallenComradeDogTag() {
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -399,12 +399,11 @@ static function X2DataTemplate CreateFallenComradeDogTag() {
 
 	}
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
-
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.WillLabel, eStat_Will, class'X2Item_Trinkets'.default.FALLENCOMRADEDOGTAG_WILL_VALUE, true); // UI Label
+		Template.StartingItem = true;
+		Template.CanBeBuilt = false;
+		Template.bInfiniteItem = true;
+		
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.WillLabel, eStat_Will, class'X2Item_Trinkets'.default.FALLENCOMRADEDOGTAG_WILL_VALUE, true);
 
 	return Template;
 }
@@ -426,6 +425,7 @@ static function X2DataTemplate CreateSkirmisherRadio() {
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -435,11 +435,9 @@ static function X2DataTemplate CreateSkirmisherRadio() {
 
 	}
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
-
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
+		Template.StartingItem = true;
+		Template.CanBeBuilt = false;
+		Template.bInfiniteItem = true;
 
 	return Template;
 }
@@ -461,6 +459,7 @@ static function X2DataTemplate CreateTemplarCharm() {
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -470,12 +469,11 @@ static function X2DataTemplate CreateTemplarCharm() {
 
 	}
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
-
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.DodgeLabel, eStat_Dodge, class'X2Item_Trinkets'.default.TEMPLARCHARM_DODGE_VALUE, true); // UI Label
+		Template.StartingItem = true;
+		Template.CanBeBuilt = false;
+		Template.bInfiniteItem = true;
+		
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.DodgeLabel, eStat_Dodge, class'X2Item_Trinkets'.default.TEMPLARCHARM_DODGE_VALUE, true);
 
 	return Template;
 }
@@ -497,6 +495,7 @@ static function X2DataTemplate CreateReaperRecipeBook() {
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
 
@@ -506,11 +505,9 @@ static function X2DataTemplate CreateReaperRecipeBook() {
 
 	}
 
-	Template.StartingItem = true;
-	Template.CanBeBuilt = false;
-	Template.bInfiniteItem = true;
-
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true); // UI Label
+		Template.StartingItem = true;
+		Template.CanBeBuilt = false;
+		Template.bInfiniteItem = true;
 
 	return Template;
 }

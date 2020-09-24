@@ -5,6 +5,7 @@ class X2Ability_Trinkets extends X2Ability
 
 	// Relics:
 	var config config(Trinkets) int VIGILANCE_SIGHTRADIUS_VALUE;
+	var config config(Trinkets) int UNDEADLYAIM_AIM_VALUE;
 
 	// Battle Trophies:
 	var config config(Trinkets) int VOODOO_DAMAGE_VALUE;
@@ -27,6 +28,7 @@ static function array<X2DataTemplate> CreateTemplates() {
 
 	// Relic Abilities:
 	TrinketStats.AddItem(Vigilance());
+	TrinketStats.AddItem(UndeadlyAim());
 	TrinketStats.AddItem(CottonMask());
 	TrinketStats.AddItem(Gambler());
 
@@ -59,6 +61,7 @@ static function X2AbilityTemplate TrinketMobility() {
 	Template.eAbilityIconBehaviorHUD = EAbilityIconBehavior_NeverShow;
 	Template.Hostility = eHostility_Neutral;
 	Template.bIsPassive = true;
+	Template.bDisplayInUITacticalText = false;
 
 	Template.AbilityToHitCalc = default.DeadEye;
 
@@ -115,6 +118,44 @@ static function X2AbilityTemplate Vigilance() {
 	PersistentStatChangeEffect.AddPersistentStatChange(eStat_SightRadius, default.VIGILANCE_SIGHTRADIUS_VALUE);
 	PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);	
 	Template.AddTargetEffect(PersistentStatChangeEffect);
+
+	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
+
+	return Template;	
+
+}
+
+static function X2AbilityTemplate UndeadlyAim() {
+
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
+	local X2AbilityTrigger Trigger;
+	local X2Effect_BonusAimToLost BonusEffect;
+
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'UndeadlyAim');
+
+	Template.IconImage = "img:///UILibrary_Trinkets.OldBulletIcon";
+
+	Template.AbilitySourceName = 'eAbilitySource_Item';
+	Template.eAbilityIconBehaviorHUD = EAbilityIconBehavior_NeverShow;
+	Template.Hostility = eHostility_Neutral;
+	Template.bDisplayInUITacticalText = true;
+	Template.bIsPassive = true;
+
+	Template.AbilityToHitCalc = default.DeadEye;
+
+	TargetStyle = new class'X2AbilityTarget_Self';
+	Template.AbilityTargetStyle = TargetStyle;
+
+	Trigger = new class'X2AbilityTrigger_UnitPostBeginPlay';
+	Template.AbilityTriggers.AddItem(Trigger);
+
+	// +Aim against Lost Units
+	BonusEffect = new class'X2Effect_BonusAimToLost';
+	BonusEffect.BonusAim = default.UNDEADLYAIM_AIM_VALUE;
+	BonusEffect.BuildPersistentEffect(1, true, false, false);
+	BonusEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);
+	Template.AddTargetEffect(BonusEffect);
 
 	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
 
@@ -251,7 +292,7 @@ static function X2AbilityTemplate Voodoo() {
 	Trigger = new class'X2AbilityTrigger_UnitPostBeginPlay';
 	Template.AbilityTriggers.AddItem(Trigger);
 
-	//// +Damage against Psionic Units
+	// +Damage against Psionic Units
 	BonusEffect = new class'X2Effect_BonusDmgToPsi';
 	BonusEffect.BonusDmg = default.VOODOO_DAMAGE_VALUE;
 	BonusEffect.BuildPersistentEffect(1, true, false, false);
@@ -538,7 +579,7 @@ static function name ApplyChance_Gambler(const out EffectAppliedData ApplyEffect
 
 	RandRoll = `SYNC_RAND_STATIC(100);
 
-	if (RandRoll <= 17) { // 6 Stat Entries, 100/6 = 16.6 reoccuring, rounding up to 17
+	if (RandRoll <= 33) { // 6 Stat Entries, 100/6 = 16.6 reoccuring, rounding up to 17
 		
 		return 'AA_Success';
 

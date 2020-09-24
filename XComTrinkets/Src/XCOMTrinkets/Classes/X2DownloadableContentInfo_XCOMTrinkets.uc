@@ -96,7 +96,7 @@ static function AddTrinkets() {
 	} 
 }
 
-static function AddLootTables() {
+static function AddLootTables() { // Use CHL to add Trinket Loot
 
     local X2LootTableManager LootManager;
     local LootTable LootBag;
