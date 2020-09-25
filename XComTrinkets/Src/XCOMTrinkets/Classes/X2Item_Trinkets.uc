@@ -1,15 +1,17 @@
 class X2Item_Trinkets extends X2Item config(Trinkets);
 
-	var config bool bXT_SecondaryWeaponTemplatesEnabled; // Controls if these Trinkets are added into the Secondary Weapon Slot
+	// Controls if these Trinkets are added into the Secondary Weapon Slot:
+	var config bool bXT_SecondaryWeaponTemplatesEnabled;
 	
-	var config int TRINKET_MOBILITY_VALUE;
+	var config int TRINKET_MOBILITY_VALUE; 
 
-	// Battle Trophies:
+	// Battle Trophy UI Labels:
 	var config int INOPERABLEBIOCHIP_DEFENSE_VALUE;
 	var config int BROKENDATAPAD_HACK_VALUE;
 
-	// World Items:
+	// World Item UI Labels:
 	var config int FALLENCOMRADEDOGTAG_WILL_VALUE;
+	var config int SONAR_OFFENSE_VALUE;
 	var config int TEMPLARCHARM_DODGE_VALUE;
 
 
@@ -39,6 +41,7 @@ static function array<X2DataTemplate> CreateTemplates() {
 	Trinkets.AddItem(CreateReaperRecipeBook());
 
 	return Trinkets;
+
 }
 
 // ##############
@@ -75,6 +78,7 @@ static function X2DataTemplate CreateOldWarMedal() {
 		Template.StartingItem = true;
 		Template.CanBeBuilt = false;
 		Template.bInfiniteItem = true;
+		Template.bAlwaysUnique = true;
 	
 	return Template;
 }
@@ -111,6 +115,7 @@ static function X2DataTemplate CreateOldWarBullet() {
 		Template.StartingItem = true;
 		Template.CanBeBuilt = false;
 		Template.bInfiniteItem = true;
+		Template.bAlwaysUnique = true;
 
 	return Template;
 }
@@ -146,6 +151,7 @@ static function X2DataTemplate CreateEXALTBandana() {
 		Template.StartingItem = true;
 		Template.CanBeBuilt = false;
 		Template.bInfiniteItem = true;
+		Template.bAlwaysUnique = true;
 
 	return Template;
 }
@@ -180,6 +186,7 @@ static function X2DataTemplate CreateCrystallizedMeld() {
 		Template.StartingItem = true;
 		Template.CanBeBuilt = false;
 		Template.bInfiniteItem = true;
+		Template.bAlwaysUnique = true;
 
 	return Template;
 }
@@ -218,6 +225,8 @@ static function X2DataTemplate CreateSectoidFinger() {
 		Template.StartingItem = false;
 		Template.CanBeBuilt = false;
 		Template.bInfiniteItem = false;
+		Template.bAlwaysUnique = false;
+
 	return Template;
 }
 
@@ -254,6 +263,7 @@ static function X2DataTemplate CreateInoperableBiochip() {
 		Template.StartingItem = false;
 		Template.CanBeBuilt = false;
 		Template.bInfiniteItem = false;
+		Template.bAlwaysUnique = false;
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.DefenseLabel, eStat_Defense, class'X2Item_Trinkets'.default.INOPERABLEBIOCHIP_DEFENSE_VALUE, true);
 
@@ -292,6 +302,7 @@ static function X2DataTemplate CreateEleriumFragment() {
 		Template.StartingItem = false;
 		Template.CanBeBuilt = false;
 		Template.bInfiniteItem = false;
+		Template.bAlwaysUnique = false;
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
@@ -328,6 +339,7 @@ static function X2DataTemplate CreateBrokenDatapad() {
 		Template.StartingItem = false;
 		Template.CanBeBuilt = false;
 		Template.bInfiniteItem = false;
+		Template.bAlwaysUnique = false;
 		
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.TechBonusLabel, eStat_Hacking, class'X2Item_Trinkets'.default.BROKENDATAPAD_HACK_VALUE, true);
 
@@ -368,6 +380,7 @@ static function X2DataTemplate CreateAVENGERScrap() {
 		Template.StartingItem = true;
 		Template.CanBeBuilt = false;
 		Template.bInfiniteItem = true;
+		Template.bAlwaysUnique = false;
 
 	return Template;
 }
@@ -401,7 +414,7 @@ static function X2DataTemplate CreateFallenComradeDogTag() {
 
 		Template.StartingItem = true;
 		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = true;
+		Template.bInfiniteItem = false;
 		
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.WillLabel, eStat_Will, class'X2Item_Trinkets'.default.FALLENCOMRADEDOGTAG_WILL_VALUE, true);
 
@@ -435,9 +448,12 @@ static function X2DataTemplate CreateSkirmisherRadio() {
 
 	}
 
-		Template.StartingItem = true;
+		Template.StartingItem = false;
 		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = true;
+		Template.bInfiniteItem = false;
+		Template.bAlwaysUnique = false;
+
+		Template.SetUIStatMarkup(class'XLocalizedData'.default.OffenseStat, eStat_Offense, class'X2Item_Trinkets'.default.SONAR_OFFENSE_VALUE, true);
 
 	return Template;
 }
@@ -469,9 +485,10 @@ static function X2DataTemplate CreateTemplarCharm() {
 
 	}
 
-		Template.StartingItem = true;
+		Template.StartingItem = false;
 		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = true;
+		Template.bInfiniteItem = false;
+		Template.bAlwaysUnique = false;
 		
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.DodgeLabel, eStat_Dodge, class'X2Item_Trinkets'.default.TEMPLARCHARM_DODGE_VALUE, true);
 
@@ -488,7 +505,7 @@ static function X2DataTemplate CreateReaperRecipeBook() {
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
 	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('Phantom');
+	Template.Abilities.AddItem('Stalker');
 
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
@@ -505,9 +522,10 @@ static function X2DataTemplate CreateReaperRecipeBook() {
 
 	}
 
-		Template.StartingItem = true;
+		Template.StartingItem = false;
 		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = true;
+		Template.bInfiniteItem = false;
+		Template.bAlwaysUnique = false;
 
 	return Template;
 }

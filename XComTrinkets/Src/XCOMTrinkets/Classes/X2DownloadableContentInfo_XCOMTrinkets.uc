@@ -28,7 +28,9 @@ static event OnLoadedSavedGame() {
 /// </summary>
 static event InstallNewCampaign(XComGameState StartState) {
 
-	// Not needed, Item Templates are added at campaign start if Template.StartingItem is set to True
+	// Item Templates are added at campaign start if Template.StartingItem is set to True, only need to add World Item Trinkets
+
+	AddWorldItems(StartState);
 
 }
 
@@ -94,6 +96,56 @@ static function AddTrinkets() {
 
 		}
 	} 
+}
+
+static function AddWorldItems(XComGameState StartState) {
+
+	local XComGameState_HeadquartersXCom XComHQ;
+	local XComGameStateHistory History;
+	local StateObjectReference UnitRef;
+	local XComGameState_Item NewItemState;
+	local X2ItemTemplateManager TemplateManager;
+	local XComGameState_Unit BarracksUnit;
+	local name ClassName;
+	local X2ItemTemplate WorldItem;
+
+	XComHQ = `XCOMHQ;
+	History = `XCOMHISTORY;
+
+	XComHQ = XComGameState_HeadquartersXCom(History.GetSingleGameStateObjectForClass(class'XComGameState_HeadquartersXCom'));
+	XComHQ = XComGameState_HeadquartersXCom(StartState.ModifyStateObject(class'XComGameState_HeadquartersXCom', XComHQ.ObjectID));
+
+	TemplateManager = class'X2ItemTemplateManager'.static.GetItemTemplateManager();
+
+	foreach XComHQ.Crew(UnitRef) {
+
+		BarracksUnit = XComGameState_Unit(History.GetGameStateForObjectID(UnitRef.ObjectID));
+		BarracksUnit = XComGameState_Unit(StartState.ModifyStateObject(class'XComGameState_Unit', BarracksUnit.ObjectID));
+
+		// Fetch the current unit's class name
+		ClassName = BarracksUnit.GetSoldierClassTemplateName();
+
+		if (BarracksUnit != none && ClassName == 'Skirmisher' || ClassName == 'Templar' || ClassName == 'Reaper') {
+
+			if (ClassName == 'Skirmisher') {
+
+				WorldItem = TemplateManager.FindItemTemplate('SkirmisherRadio');
+
+			} else if (ClassName == 'Templar') {
+
+				WorldItem = TemplateManager.FindItemTemplate('TemplarCharm');
+
+			} else if (ClassName == 'Reaper') {
+
+				WorldItem = TemplateManager.FindItemTemplate('ReaperRecipeBook');
+
+			}	 
+			
+			NewItemState = WorldItem.CreateInstanceFromTemplate(StartState);
+			XComHQ.AddItemToHQInventory(NewItemState);
+
+		}
+	}
 }
 
 static function AddLootTables() { // Use CHL to add Trinket Loot

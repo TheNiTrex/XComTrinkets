@@ -50,6 +50,9 @@ tags= item, weapon, gameplay</Description>
     <Content Include="Src\XCOMTrinkets\Classes\X2Effect_CritImmunity.uc">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\XCOMTrinkets\Classes\X2EventListener_AddWorldItems.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\XCOMTrinkets\Classes\X2Item_Trinkets.uc">
       <SubType>Content</SubType>
     </Content>

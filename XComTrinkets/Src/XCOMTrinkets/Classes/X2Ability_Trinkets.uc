@@ -3,20 +3,22 @@ class X2Ability_Trinkets extends X2Ability
 
 	var config config(Trinkets) int TRINKET_MOBILITY_VALUE;
 
-	// Relics:
+	// Relic Stat Values:
 	var config config(Trinkets) int VIGILANCE_SIGHTRADIUS_VALUE;
 	var config config(Trinkets) int UNDEADLYAIM_AIM_VALUE;
+	var config config(Trinkets) int GAMBLER_RANDOMSTATVALUE_VALUE;
 
-	// Battle Trophies:
+	// Battle Trophy Stat Values:
 	var config config(Trinkets) int VOODOO_DAMAGE_VALUE;
 	var config config(Trinkets) int HARDTOTRACK_DEFENSE_VALUE;
 	var config config(Trinkets) int GLASSARMOR_SHIELDHP_VALUE;
 	var config config(Trinkets) int TINKERER_HACK_VALUE;
 
-	// World Items:
+	// World Item Stat Values:
 	var config config(Trinkets) int HEROISM_WILL_VALUE;
-	var config config(Trinkets) int SONAR_CRITCHANCE_VALUE;
+	var config config(Trinkets) int SONAR_OFFENSE_VALUE;
 	var config config(Trinkets) int ARMOROFFAITH_DODGE_VALUE;
+	var config config(Trinkets) int STALKER_CRITCHANCE_VALUE;
 
 static function array<X2DataTemplate> CreateTemplates() {
 
@@ -43,6 +45,7 @@ static function array<X2DataTemplate> CreateTemplates() {
 	TrinketStats.AddItem(Heroism());
 	TrinketStats.AddItem(Sonar());
 	TrinketStats.AddItem(ArmorOfFaith());
+	TrinketStats.AddItem(Stalker());
 
 	return TrinketStats;
 
@@ -116,6 +119,7 @@ static function X2AbilityTemplate Vigilance() {
 	PersistentStatChangeEffect.EffectName = 'Vigilance';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
 	PersistentStatChangeEffect.AddPersistentStatChange(eStat_SightRadius, default.VIGILANCE_SIGHTRADIUS_VALUE);
+	//BuffCat, string, string, string
 	PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);	
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
@@ -134,7 +138,7 @@ static function X2AbilityTemplate UndeadlyAim() {
 
 	`CREATE_X2ABILITY_TEMPLATE(Template, 'UndeadlyAim');
 
-	Template.IconImage = "img:///UILibrary_Trinkets.OldBulletIcon";
+	Template.IconImage = "img:///UILibrary_Trinkets.OldWarBulletIcon";
 
 	Template.AbilitySourceName = 'eAbilitySource_Item';
 	Template.eAbilityIconBehaviorHUD = EAbilityIconBehavior_NeverShow;
@@ -236,12 +240,13 @@ static function X2AbilityTemplate Gambler() {
 	Trigger = new class'X2AbilityTrigger_UnitPostBeginPlay';
 	Template.AbilityTriggers.AddItem(Trigger);
 
-	RandomStatTypes.AddItem(eStat_SightRadius);
 	RandomStatTypes.AddItem(eStat_Defense);
-	RandomStatTypes.AddItem(eStat_Hacking);
 	RandomStatTypes.AddItem(eStat_Will);
-	RandomStatTypes.AddItem(eStat_CritChance);
 	RandomStatTypes.AddItem(eStat_Dodge);
+	RandomStatTypes.AddItem(eStat_CritChance);
+	RandomStatTypes.AddItem(eStat_SightRadius);
+	RandomStatTypes.AddItem(eStat_Offense);
+	RandomStatTypes.AddItem(eStat_Hacking);
 
 	// Throw Stat Types into an iterator and roll for each
 	for (Index = 0; Index < RandomStatTypes.length; ++Index) {
@@ -249,7 +254,7 @@ static function X2AbilityTemplate Gambler() {
 		PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
 		PersistentStatChangeEffect.EffectName = 'Gambler';
 		PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-		PersistentStatChangeEffect.AddPersistentStatChange(RandomStatTypes[Index], 10);
+		PersistentStatChangeEffect.AddPersistentStatChange(RandomStatTypes[Index], default.GAMBLER_RANDOMSTATVALUE_VALUE);
 		PersistentStatChangeEffect.ApplyChanceFn = ApplyChance_Gambler;
 		PersistentStatChangeEffect.DuplicateResponse = eDupe_Ignore; // Ignore duplicate Effects, prevents units from getting multiple boosts
 		PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);
@@ -525,7 +530,7 @@ static function X2AbilityTemplate Sonar() {
 	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
 	PersistentStatChangeEffect.EffectName = 'Sonar';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-	PersistentStatChangeEffect.AddPersistentStatChange(eStat_CritChance, default.SONAR_CRITCHANCE_VALUE);
+	PersistentStatChangeEffect.AddPersistentStatChange(eStat_Offense, default.SONAR_OFFENSE_VALUE);
 	PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);	
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
@@ -573,13 +578,51 @@ static function X2AbilityTemplate ArmorOfFaith() {
 
 }
 
+static function X2AbilityTemplate Stalker() {
+
+	local X2AbilityTemplate Template;
+	local X2AbilityTarget_Self TargetStyle;	
+	local X2AbilityTrigger Trigger;
+	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
+
+	`CREATE_X2ABILITY_TEMPLATE(Template, 'Stalker');
+
+	Template.IconImage = "img:///UILibrary_Trinkets.ReaperCookbookIcon";
+
+	Template.AbilitySourceName = 'eAbilitySource_Item';
+	Template.eAbilityIconBehaviorHUD = EAbilityIconBehavior_NeverShow;
+	Template.Hostility = eHostility_Neutral;
+	Template.bDisplayInUITacticalText = true;
+	Template.bIsPassive = true;
+
+	Template.AbilityToHitCalc = default.DeadEye;
+
+	TargetStyle = new class'X2AbilityTarget_Self';
+	Template.AbilityTargetStyle = TargetStyle;
+
+	Trigger = new class'X2AbilityTrigger_UnitPostBeginPlay';
+	Template.AbilityTriggers.AddItem(Trigger);
+
+	PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
+	PersistentStatChangeEffect.EffectName = 'Stalker';
+	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
+	PersistentStatChangeEffect.AddPersistentStatChange(eStat_CritChance, default.STALKER_CRITCHANCE_VALUE);
+	PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);	
+	Template.AddTargetEffect(PersistentStatChangeEffect);
+
+	Template.BuildNewGameStateFn = TypicalAbility_BuildGameState;
+
+	return Template;
+
+}
+
 static function name ApplyChance_Gambler(const out EffectAppliedData ApplyEffectParameters, XComGameState_BaseObject kNewTargetState, XComGameState NewGameState) {
 
 	local int RandRoll;
 
 	RandRoll = `SYNC_RAND_STATIC(100);
 
-	if (RandRoll <= 33) { // 6 Stat Entries, 100/6 = 16.6 reoccuring, rounding up to 17
+	if (RandRoll <= 14) {
 		
 		return 'AA_Success';
 
