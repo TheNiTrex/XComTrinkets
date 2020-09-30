@@ -6,7 +6,6 @@ class X2Ability_Trinkets extends X2Ability
 	// Relic Stat Values:
 	var config config(Trinkets) int VIGILANCE_SIGHTRADIUS_VALUE;
 	var config config(Trinkets) int UNDEADLYAIM_AIM_VALUE;
-	var config config(Trinkets) int GAMBLER_RANDOMSTATVALUE_VALUE;
 
 	// Battle Trophy Stat Values:
 	var config config(Trinkets) int VOODOO_DAMAGE_VALUE;
@@ -119,7 +118,6 @@ static function X2AbilityTemplate Vigilance() {
 	PersistentStatChangeEffect.EffectName = 'Vigilance';
 	PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
 	PersistentStatChangeEffect.AddPersistentStatChange(eStat_SightRadius, default.VIGILANCE_SIGHTRADIUS_VALUE);
-	//BuffCat, string, string, string
 	PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);	
 	Template.AddTargetEffect(PersistentStatChangeEffect);
 
@@ -219,6 +217,7 @@ static function X2AbilityTemplate Gambler() {
 	local X2AbilityTarget_Self TargetStyle;	
 	local X2AbilityTrigger Trigger;
 	local array<ECharStatType> RandomStatTypes;
+	local array<float> RandomStatValues;
 	local int Index;
 	local X2Effect_PersistentStatChange PersistentStatChangeEffect;
 
@@ -240,21 +239,33 @@ static function X2AbilityTemplate Gambler() {
 	Trigger = new class'X2AbilityTrigger_UnitPostBeginPlay';
 	Template.AbilityTriggers.AddItem(Trigger);
 
+	RandomStatTypes.AddItem(eStat_Mobility);
+	RandomStatTypes.AddItem(eStat_SightRadius);
 	RandomStatTypes.AddItem(eStat_Defense);
+	RandomStatTypes.AddItem(eStat_ShieldHP);
+	RandomStatTypes.AddItem(eStat_Hacking);
 	RandomStatTypes.AddItem(eStat_Will);
+	RandomStatTypes.AddItem(eStat_Offense);
 	RandomStatTypes.AddItem(eStat_Dodge);
 	RandomStatTypes.AddItem(eStat_CritChance);
-	RandomStatTypes.AddItem(eStat_SightRadius);
-	RandomStatTypes.AddItem(eStat_Offense);
-	RandomStatTypes.AddItem(eStat_Hacking);
 
-	// Throw Stat Types into an iterator and roll for each
+	RandomStatValues.AddItem(default.TRINKET_MOBILITY_VALUE);
+	RandomStatValues.AddItem(default.VIGILANCE_SIGHTRADIUS_VALUE);
+	RandomStatValues.AddItem(default.HARDTOTRACK_DEFENSE_VALUE);
+	RandomStatValues.AddItem(default.GLASSARMOR_SHIELDHP_VALUE);
+	RandomStatValues.AddItem(default.TINKERER_HACK_VALUE);
+	RandomStatValues.AddItem(default.HEROISM_WILL_VALUE);
+	RandomStatValues.AddItem(default.SONAR_OFFENSE_VALUE);
+	RandomStatValues.AddItem(default.ARMOROFFAITH_DODGE_VALUE);
+	RandomStatValues.AddItem(default.STALKER_CRITCHANCE_VALUE);
+
+	// Throw Stat Types and Values into an iterator and roll for each
 	for (Index = 0; Index < RandomStatTypes.length; ++Index) {
 
 		PersistentStatChangeEffect = new class'X2Effect_PersistentStatChange';
 		PersistentStatChangeEffect.EffectName = 'Gambler';
 		PersistentStatChangeEffect.BuildPersistentEffect(1, true, false, false);
-		PersistentStatChangeEffect.AddPersistentStatChange(RandomStatTypes[Index], default.GAMBLER_RANDOMSTATVALUE_VALUE);
+		PersistentStatChangeEffect.AddPersistentStatChange(RandomStatTypes[Index], (RandomStatValues[Index] * 2));
 		PersistentStatChangeEffect.ApplyChanceFn = ApplyChance_Gambler;
 		PersistentStatChangeEffect.DuplicateResponse = eDupe_Ignore; // Ignore duplicate Effects, prevents units from getting multiple boosts
 		PersistentStatChangeEffect.SetDisplayInfo(ePerkBuff_Passive, Template.LocFriendlyName, Template.GetMyLongDescription(), Template.IconImage, true,, Template.AbilitySourceName);
@@ -622,7 +633,7 @@ static function name ApplyChance_Gambler(const out EffectAppliedData ApplyEffect
 
 	RandRoll = `SYNC_RAND_STATIC(100);
 
-	if (RandRoll <= 14) {
+	if (RandRoll <= 11) { // 11% chance (100 divided by 9 Stats) for each roll
 		
 		return 'AA_Success';
 

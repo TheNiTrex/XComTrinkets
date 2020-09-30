@@ -11,7 +11,7 @@ class X2Item_Trinkets extends X2Item config(Trinkets);
 
 	// World Item UI Labels:
 	var config int FALLENCOMRADEDOGTAG_WILL_VALUE;
-	var config int SONAR_OFFENSE_VALUE;
+	var config int SKIRMISHERRADIO_OFFENSE_VALUE;
 	var config int TEMPLARCHARM_DODGE_VALUE;
 
 
@@ -57,14 +57,14 @@ static function X2DataTemplate CreateOldWarMedal() {
 	Template.strImage = "img:///UILibrary_Trinkets.OldMedal";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('Vigilance');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -75,12 +75,15 @@ static function X2DataTemplate CreateOldWarMedal() {
 
 	}
 
-		Template.StartingItem = true;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = true;
-		Template.bAlwaysUnique = true;
+	Template.Abilities.AddItem('Vigilance');
+
+	Template.StartingItem = true;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysUnique = true;
 	
 	return Template;
+
 }
 
 
@@ -93,15 +96,14 @@ static function X2DataTemplate CreateOldWarBullet() {
 	Template.strImage = "img:///UILibrary_Trinkets.OldWarBullet";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('UndeadlyAim');
-	//Template.Abilities.AddItem('BetweenTheEyes');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -112,12 +114,15 @@ static function X2DataTemplate CreateOldWarBullet() {
 
 	}
 
-		Template.StartingItem = true;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = true;
-		Template.bAlwaysUnique = true;
+	Template.Abilities.AddItem('UndeadlyAim');
+
+	Template.StartingItem = true;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysUnique = true;
 
 	return Template;
+
 }
 
 
@@ -130,14 +135,14 @@ static function X2DataTemplate CreateEXALTBandana() {
 	Template.strImage = "img:///UILibrary_Trinkets.XALTBandana2";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('CottonMask');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -148,12 +153,15 @@ static function X2DataTemplate CreateEXALTBandana() {
 
 	}
 
-		Template.StartingItem = true;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = true;
-		Template.bAlwaysUnique = true;
+	Template.Abilities.AddItem('CottonMask');
+
+	Template.StartingItem = true;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysUnique = true;
 
 	return Template;
+
 }
 
 static function X2DataTemplate CreateCrystallizedMeld() {
@@ -165,14 +173,14 @@ static function X2DataTemplate CreateCrystallizedMeld() {
 	Template.strImage = "img:///UILibrary_Trinkets.CrystallizedMeld";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('Gambler');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -183,12 +191,15 @@ static function X2DataTemplate CreateCrystallizedMeld() {
 
 	}
 
-		Template.StartingItem = true;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = true;
-		Template.bAlwaysUnique = true;
+	Template.Abilities.AddItem('Gambler');
+
+	Template.StartingItem = true;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysUnique = true;
 
 	return Template;
+
 }
 
 // #######################
@@ -204,14 +215,14 @@ static function X2DataTemplate CreateSectoidFinger() {
 	Template.strImage = "img:///UILibrary_Trinkets.SectoidFinger";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('Voodoo');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -222,12 +233,15 @@ static function X2DataTemplate CreateSectoidFinger() {
 
 	}
 
-		Template.StartingItem = false;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = false;
-		Template.bAlwaysUnique = false;
+	Template.Abilities.AddItem('Voodoo');
+
+	Template.StartingItem = false;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysUnique = false;
 
 	return Template;
+
 }
 
 
@@ -240,14 +254,14 @@ static function X2DataTemplate CreateInoperableBiochip() {
 	Template.strImage = "img:///UILibrary_Trinkets.InoperableChip";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('HardToTrack');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -258,16 +272,19 @@ static function X2DataTemplate CreateInoperableBiochip() {
 
 	}
 
-		Template.LootStaticMesh = StaticMesh'UI_3D.Loot.WeapFragmentA';
+	Template.Abilities.AddItem('HardToTrack');
 
-		Template.StartingItem = false;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = false;
-		Template.bAlwaysUnique = false;
+	Template.LootStaticMesh = StaticMesh'UI_3D.Loot.WeapFragmentA';
+
+	Template.StartingItem = false;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysUnique = false;
 
 	Template.SetUIStatMarkup(class'XLocalizedData'.default.DefenseLabel, eStat_Defense, class'X2Item_Trinkets'.default.INOPERABLEBIOCHIP_DEFENSE_VALUE, true);
 
 	return Template;
+
 }
 
 static function X2DataTemplate CreateEleriumFragment() {
@@ -279,14 +296,14 @@ static function X2DataTemplate CreateEleriumFragment() {
 	Template.strImage = "img:///UILibrary_Trinkets.EleriumShard";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('GlassArmor');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -297,16 +314,17 @@ static function X2DataTemplate CreateEleriumFragment() {
 
 	}
 
-		Template.LootStaticMesh = StaticMesh'UI_3D.Loot.WeapFragmentA';
+	Template.Abilities.AddItem('GlassArmor');
 
-		Template.StartingItem = false;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = false;
-		Template.bAlwaysUnique = false;
+	Template.LootStaticMesh = StaticMesh'UI_3D.Loot.WeapFragmentA';
 
-	Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
+	Template.StartingItem = false;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysUnique = false;
 
 	return Template;
+
 }
 
 static function X2DataTemplate CreateBrokenDatapad() {
@@ -318,14 +336,14 @@ static function X2DataTemplate CreateBrokenDatapad() {
 	Template.strImage = "img:///UILibrary_Trinkets.BrokenDataCache";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('Tinkerer');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -336,14 +354,17 @@ static function X2DataTemplate CreateBrokenDatapad() {
 
 	}
 
-		Template.StartingItem = false;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = false;
-		Template.bAlwaysUnique = false;
+	Template.StartingItem = false;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysUnique = false;
+	
+	Template.Abilities.AddItem('Tinkerer');
 		
-		Template.SetUIStatMarkup(class'XLocalizedData'.default.TechBonusLabel, eStat_Hacking, class'X2Item_Trinkets'.default.BROKENDATAPAD_HACK_VALUE, true);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.TechBonusLabel, eStat_Hacking, class'X2Item_Trinkets'.default.BROKENDATAPAD_HACK_VALUE, true);
 
 	return Template;
+
 }
 
 // ###################
@@ -359,14 +380,14 @@ static function X2DataTemplate CreateAVENGERScrap() {
 	Template.strImage = "img:///UILibrary_Trinkets.AVENGERScrap";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('HomeSweetHome');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -377,12 +398,15 @@ static function X2DataTemplate CreateAVENGERScrap() {
 
 	}
 
-		Template.StartingItem = true;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = true;
-		Template.bAlwaysUnique = false;
+	Template.Abilities.AddItem('HomeSweetHome');
+
+	Template.StartingItem = false;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysUnique = false;
 
 	return Template;
+
 }
 
 static function X2DataTemplate CreateFallenComradeDogTag() {
@@ -394,14 +418,14 @@ static function X2DataTemplate CreateFallenComradeDogTag() {
 	Template.strImage = "img:///UILibrary_Trinkets.TrinketDogtags";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('Heroism');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -412,13 +436,17 @@ static function X2DataTemplate CreateFallenComradeDogTag() {
 
 	}
 
-		Template.StartingItem = true;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = false;
+	Template.Abilities.AddItem('Heroism');
+
+	Template.StartingItem = false;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysRecovered = false; // If set to true, this item will always be looted if dropped
 		
-		Template.SetUIStatMarkup(class'XLocalizedData'.default.WillLabel, eStat_Will, class'X2Item_Trinkets'.default.FALLENCOMRADEDOGTAG_WILL_VALUE, true);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.WillLabel, eStat_Will, class'X2Item_Trinkets'.default.FALLENCOMRADEDOGTAG_WILL_VALUE, true);
 
 	return Template;
+
 }
 
 static function X2DataTemplate CreateSkirmisherRadio() {
@@ -430,14 +458,14 @@ static function X2DataTemplate CreateSkirmisherRadio() {
 	Template.strImage = "img:///UILibrary_Trinkets.SkirmisherRadio";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('Sonar');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+		
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -448,14 +476,17 @@ static function X2DataTemplate CreateSkirmisherRadio() {
 
 	}
 
-		Template.StartingItem = false;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = false;
-		Template.bAlwaysUnique = false;
+	Template.Abilities.AddItem('Sonar');
 
-		Template.SetUIStatMarkup(class'XLocalizedData'.default.OffenseStat, eStat_Offense, class'X2Item_Trinkets'.default.SONAR_OFFENSE_VALUE, true);
+	Template.StartingItem = false;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysUnique = false;
+
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.OffenseStat, eStat_Offense, class'X2Item_Trinkets'.default.SKIRMISHERRADIO_OFFENSE_VALUE, true);
 
 	return Template;
+
 }
 
 static function X2DataTemplate CreateTemplarCharm() {
@@ -467,14 +498,14 @@ static function X2DataTemplate CreateTemplarCharm() {
 	Template.strImage = "img:///UILibrary_Trinkets.TemplarCharm";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('ArmorOfFaith');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -485,14 +516,17 @@ static function X2DataTemplate CreateTemplarCharm() {
 
 	}
 
-		Template.StartingItem = false;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = false;
-		Template.bAlwaysUnique = false;
+	Template.Abilities.AddItem('ArmorOfFaith');
+
+	Template.StartingItem = false;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysUnique = false;
 		
-		Template.SetUIStatMarkup(class'XLocalizedData'.default.DodgeLabel, eStat_Dodge, class'X2Item_Trinkets'.default.TEMPLARCHARM_DODGE_VALUE, true);
+	Template.SetUIStatMarkup(class'XLocalizedData'.default.DodgeLabel, eStat_Dodge, class'X2Item_Trinkets'.default.TEMPLARCHARM_DODGE_VALUE, true);
 
 	return Template;
+
 }
 
 static function X2DataTemplate CreateReaperRecipeBook() {
@@ -504,14 +538,14 @@ static function X2DataTemplate CreateReaperRecipeBook() {
 	Template.strImage = "img:///UILibrary_Trinkets.Reaper_Cookbook";
 	Template.EquipSound = "StrategyUI_Grenade_Equip";
 
-	Template.Abilities.AddItem('TrinketMobility');
-	Template.Abilities.AddItem('Stalker');
-
 	if (default.bXT_SecondaryWeaponTemplatesEnabled == true) {
 
 		Template.ItemCat = 'weapon';
 		Template.WeaponCat = 'empty';
 		Template.InventorySlot = eInvSlot_SecondaryWeapon;
+
+		Template.Abilities.AddItem('TrinketMobility');
+
 		Template.SetUIStatMarkup(class'XLocalizedData'.default.MobilityLabel, eStat_Mobility, class'X2Item_Trinkets'.default.TRINKET_MOBILITY_VALUE, true);
 
 	} else {
@@ -522,10 +556,13 @@ static function X2DataTemplate CreateReaperRecipeBook() {
 
 	}
 
-		Template.StartingItem = false;
-		Template.CanBeBuilt = false;
-		Template.bInfiniteItem = false;
-		Template.bAlwaysUnique = false;
+	Template.Abilities.AddItem('Stalker');
+
+	Template.StartingItem = false;
+	Template.CanBeBuilt = false;
+	Template.bInfiniteItem = false;
+	Template.bAlwaysUnique = false;
 
 	return Template;
+
 }

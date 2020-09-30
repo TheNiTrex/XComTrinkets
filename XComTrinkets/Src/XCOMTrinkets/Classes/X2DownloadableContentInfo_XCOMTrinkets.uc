@@ -122,27 +122,35 @@ static function AddWorldItems(XComGameState StartState) {
 		BarracksUnit = XComGameState_Unit(History.GetGameStateForObjectID(UnitRef.ObjectID));
 		BarracksUnit = XComGameState_Unit(StartState.ModifyStateObject(class'XComGameState_Unit', BarracksUnit.ObjectID));
 
-		// Fetch the current unit's class name
+		// Fetch the unit's class name
 		ClassName = BarracksUnit.GetSoldierClassTemplateName();
 
 		if (BarracksUnit != none && ClassName == 'Skirmisher' || ClassName == 'Templar' || ClassName == 'Reaper') {
 
-			if (ClassName == 'Skirmisher') {
+			switch (ClassName) {
 
-				WorldItem = TemplateManager.FindItemTemplate('SkirmisherRadio');
+				case 'Skirmisher':
 
-			} else if (ClassName == 'Templar') {
+					WorldItem = TemplateManager.FindItemTemplate('SkirmisherRadio');
 
-				WorldItem = TemplateManager.FindItemTemplate('TemplarCharm');
+					break;
 
-			} else if (ClassName == 'Reaper') {
+				case 'Templar':
 
-				WorldItem = TemplateManager.FindItemTemplate('ReaperRecipeBook');
+					WorldItem = TemplateManager.FindItemTemplate('TemplarCharm');
 
-			}	 
+					break;
+
+				case 'Reaper':
+
+					WorldItem = TemplateManager.FindItemTemplate('ReaperRecipeBook');
+
+					break;
+
+			}
 			
 			NewItemState = WorldItem.CreateInstanceFromTemplate(StartState);
-			XComHQ.AddItemToHQInventory(NewItemState);
+			XComHQ.PutItemInInventory(StartState, NewItemState);
 
 		}
 	}
@@ -158,7 +166,7 @@ static function AddLootTables() { // Use CHL to add Trinket Loot
 
     foreach default.LootEntry(LootBag) {
 
-        if ( LootManager.default.LootTables.Find('TableName', LootBag.TableName) != INDEX_NONE ) {
+        if (LootManager.default.LootTables.Find('TableName', LootBag.TableName) != INDEX_NONE) {
 
             foreach LootBag.Loots(Entry) {
 
@@ -167,4 +175,92 @@ static function AddLootTables() { // Use CHL to add Trinket Loot
             }
         }    
     }
+}
+
+static event OnPreMission(XComGameState NewGameState, XComGameState_MissionSite MissionState) { // Adding TacticalCleanup TacticalEventListener
+
+	local XComGameState_TacticalCleanup EndMissionListener;
+	
+	EndMissionListener = XComGameState_TacticalCleanup(class'XComGameStateHistory'.static.GetGameStateHistory().GetSingleGameStateObjectForClass(class'XComGameState_TacticalCleanup', true));
+
+	if (EndMissionListener == none) {
+
+		EndMissionListener = XComGameState_TacticalCleanup(NewGameState.CreateStateObject(class'XComGameState_TacticalCleanup'));
+		NewGameState.AddStateObject(EndMissionListener);
+
+	}
+
+	EndMissionListener.RegisterToListen();
+
+}
+
+static function bool AbilityTagExpandHandler(string InString, out string OutString) { // Dynamic Localization
+
+    local name TagText;
+    
+    TagText = name(InString);
+		
+	switch (TagText) {
+
+		case 'VIGILANCE_SIGHTRADIUS_VALUE':
+
+			OutString = string(class'X2Ability_Trinkets'.default.VIGILANCE_SIGHTRADIUS_VALUE);
+
+			return true;
+
+		case 'UNDEADLYAIM_AIM_VALUE':
+
+			OutString = string(class'X2Ability_Trinkets'.default.UNDEADLYAIM_AIM_VALUE);
+
+			return true;
+
+		case 'VOODOO_DAMAGE_VALUE':
+
+			OutString = string(class'X2Ability_Trinkets'.default.VOODOO_DAMAGE_VALUE);
+
+			return true;
+
+		case 'HARDTOTRACK_DEFENSE_VALUE':
+
+			OutString = string(class'X2Ability_Trinkets'.default.HARDTOTRACK_DEFENSE_VALUE);
+
+			return true;
+
+		case 'GLASSARMOR_SHIELDHP_VALUE':
+
+			OutString = string(class'X2Ability_Trinkets'.default.GLASSARMOR_SHIELDHP_VALUE);
+
+			return true;
+
+		case 'TINKERER_HACK_VALUE':
+
+			OutString = string(class'X2Ability_Trinkets'.default.TINKERER_HACK_VALUE);
+
+			return true;
+
+		case 'HEROISM_WILL_VALUE':
+
+			OutString = string(class'X2Ability_Trinkets'.default.HEROISM_WILL_VALUE);
+
+			return true;
+
+		case 'SONAR_OFFENSE_VALUE':
+
+			OutString = string(class'X2Ability_Trinkets'.default.SONAR_OFFENSE_VALUE);
+
+			return true;
+
+		case 'ARMOROFFAITH_DODGE_VALUE':
+
+			OutString = string(class'X2Ability_Trinkets'.default.ARMOROFFAITH_DODGE_VALUE);
+
+			return true;
+
+		case 'STALKER_CRITCHANCE_VALUE':
+
+			OutString = string(class'X2Ability_Trinkets'.default.STALKER_CRITCHANCE_VALUE);
+
+			return true;
+
+	}
 }

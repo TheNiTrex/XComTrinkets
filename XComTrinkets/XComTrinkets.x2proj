@@ -19,9 +19,6 @@ tags= item, weapon, gameplay</Description>
     <Folder Include="Src\XCOMTrinkets\Classes\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\XComClassData.ini">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="Config\XComGameCore.ini">
       <SubType>Content</SubType>
     </Content>
@@ -54,6 +51,9 @@ tags= item, weapon, gameplay</Description>
       <SubType>Content</SubType>
     </Content>
     <Content Include="Src\XCOMTrinkets\Classes\X2Item_Trinkets.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\XCOMTrinkets\Classes\XComGameState_TacticalCleanup.uc">
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>
