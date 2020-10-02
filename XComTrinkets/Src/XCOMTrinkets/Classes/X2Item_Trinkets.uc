@@ -5,6 +5,8 @@ class X2Item_Trinkets extends X2Item config(Trinkets);
 	
 	var config int TRINKET_MOBILITY_VALUE; 
 
+	var config int EXALTBANDANA_TRADINGPOST_VALUE;
+
 	// Battle Trophy UI Labels:
 	var config int INOPERABLEBIOCHIP_DEFENSE_VALUE;
 	var config int BROKENDATAPAD_HACK_VALUE;
@@ -155,6 +157,7 @@ static function X2DataTemplate CreateEXALTBandana() {
 
 	Template.Abilities.AddItem('CottonMask');
 
+	Template.TradingPostValue = default.EXALTBANDANA_TRADINGPOST_VALUE;
 	Template.StartingItem = true;
 	Template.CanBeBuilt = false;
 	Template.bInfiniteItem = false;
